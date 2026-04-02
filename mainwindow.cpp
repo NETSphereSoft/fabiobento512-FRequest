@@ -195,6 +195,21 @@ void MainWindow::applicationHasLoaded(){
     this->applicationIsFullyLoaded = true;
     this->ignoreAnyChangesToProject.UnsetCondition();
 
+	QStringList args = QCoreApplication::arguments();
+
+	if(args.size() >= 2){
+		QString file = args.at(1);
+
+		if(QFileInfo::exists(file)){
+			loadProjectState(file);
+
+			return;
+		}
+		else{
+			Util::Dialogs::showWarning(QString("The project file \"%1\" does not exist.").arg(file));
+		}
+	}
+
     if(this->currentSettings.recentProjectsPaths.size() > 0){
 
         const QString &lastSavedProject = this->currentSettings.recentProjectsPaths[0];
