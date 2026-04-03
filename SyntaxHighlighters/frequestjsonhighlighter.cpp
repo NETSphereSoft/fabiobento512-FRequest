@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *
 */
 
+#include <QRegularExpression>
 #include "frequestjsonhighlighter.h"
 
 FRequestJSONHighlighter::FRequestJSONHighlighter(QTextDocument *parent)
@@ -25,7 +26,7 @@ FRequestJSONHighlighter::FRequestJSONHighlighter(QTextDocument *parent)
 	
    // Override colors
    for(HighlightingRule &currRule : this->rules){
-	   if(currRule.pattern == QRegExp("(true|false|null)(?!\"[^\"]*\")")){
+       if(currRule.pattern == QRegularExpression("(true|false|null)(?!\"[^\"]*\")")){
 		   //reserved words
 		   currRule.format.setForeground(QColor(0x0066ff));
 		   break;
