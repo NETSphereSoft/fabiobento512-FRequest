@@ -223,13 +223,13 @@ private:
     QList<QString> recentProjectsList;
     QString lastResponseFileName;
     int lastReplyStatusError = 0;
-#ifdef Q_OS_MAC
-    ConfigFileFRequest configFileManager = ConfigFileFRequest(Util::FileSystem::getAppPath() + "/" + GlobalVars::AppConfigFileName);
-#else
+#ifdef Q_OS_WIN
     ConfigFileFRequest configFileManager = ConfigFileFRequest(QDir(QDir(QProcessEnvironment::systemEnvironment()
                                                                                             .value("LOCALAPPDATA"))
                                                                                             .filePath(GlobalVars::AppName))
                                                                                             .filePath(GlobalVars::AppConfigFileName));
+#else
+    ConfigFileFRequest configFileManager = ConfigFileFRequest(Util::FileSystem::getAppPath() + "/" + GlobalVars::AppConfigFileName);
 #endif
     ConfigFileFRequest::Settings currentSettings;
     const QSize auxMinimumSize = QSize(0,0);
