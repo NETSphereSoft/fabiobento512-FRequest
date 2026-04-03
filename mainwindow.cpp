@@ -53,13 +53,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     operatingSystemDefaultStyle(QApplication::style()->objectName())
 {
-#ifdef Q_OS_MAC
-    QString logFilePath = Util::FileSystem::getAppPath() + "/" + GlobalVars::AppLogFileName;
-#else
+#ifdef Q_OS_WIN
     QString logFilePath = QDir(QDir(QProcessEnvironment::systemEnvironment()
                                                         .value("LOCALAPPDATA"))
                                                         .filePath(GlobalVars::AppName))
                                                         .filePath(GlobalVars::AppLogFileName);
+#else
+    QString logFilePath = Util::FileSystem::getAppPath() + "/" + GlobalVars::AppLogFileName;
 #endif
 
     // We use this appender because it is the native way to have \r\n in windows in plog library

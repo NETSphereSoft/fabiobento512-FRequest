@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-#ifndef Q_OS_MAC
+#ifdef Q_OS_WIN
     // Ensure path for configuration and log file before MainWindow initialization
     QDir().mkpath(QDir(QProcessEnvironment::systemEnvironment().value("LOCALAPPDATA")).filePath(GlobalVars::AppName));
 #endif
