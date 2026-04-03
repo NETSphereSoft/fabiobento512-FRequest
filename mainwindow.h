@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QProcessEnvironment>
 #include <QProgressBar>
 #include <QToolButton>
 #include <QLabel>
@@ -222,7 +223,14 @@ private:
     QList<QString> recentProjectsList;
     QString lastResponseFileName;
     int lastReplyStatusError = 0;
+#ifdef Q_OS_MAC
     ConfigFileFRequest configFileManager = ConfigFileFRequest(Util::FileSystem::getAppPath() + "/" + GlobalVars::AppConfigFileName);
+#else
+    ConfigFileFRequest configFileManager = ConfigFileFRequest(QDir(QDir(QProcessEnvironment::systemEnvironment()
+                                                                                            .value("LOCALAPPDATA"))
+                                                                                            .filePath(GlobalVars::AppName))
+                                                                                            .filePath(GlobalVars::AppConfigFileName));
+#endif
     ConfigFileFRequest::Settings currentSettings;
     const QSize auxMinimumSize = QSize(0,0);
     const QSize auxMaximumSize = QSize(16777215,16777215);

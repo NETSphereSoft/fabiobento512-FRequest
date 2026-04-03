@@ -18,11 +18,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "mainwindow.h"
+#include "utilglobalvars.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+#ifndef Q_OS_MAC
+    // Ensure path for configuration and log file before MainWindow initialization
+    QDir().mkpath(QDir(QProcessEnvironment::systemEnvironment().value("LOCALAPPDATA")).filePath(GlobalVars::AppName));
+#endif
+
     MainWindow w;
     w.show();
     a.setStyleSheet("QStatusBar::item { border: 0px; }"); //hide borders in status bar //http://qt-project.org/forums/viewthread/18743
