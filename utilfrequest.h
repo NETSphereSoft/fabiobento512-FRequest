@@ -124,6 +124,7 @@ struct RequestInfo{
 
 static QMimeDatabase mimeDatabase;
 
+QDir getAppDataFolder();
 QString getDocumentsFolder();
 bool requestTypeMayHaveBody(RequestType currentRequestType);
 RequestType getRequestTypeByString(const QString &currentRequestText);

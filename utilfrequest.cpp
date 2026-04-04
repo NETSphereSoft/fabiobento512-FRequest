@@ -22,6 +22,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace UtilFRequest{
 
+QDir getAppDataFolder()
+{
+    QDir appDataFolder = QDir(QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation));
+
+    appDataFolder.mkdir(".");
+
+    return appDataFolder;
+}
+
 QString getDocumentsFolder(){
 
     QString result = Util::FileSystem::normalizePath(QStandardPaths::locate(QStandardPaths::DocumentsLocation, QString(), QStandardPaths::LocateDirectory));
