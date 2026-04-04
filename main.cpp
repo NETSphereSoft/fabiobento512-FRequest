@@ -23,12 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setApplicationName(GlobalVars::AppName);
     QApplication a(argc, argv);
-
-#ifdef Q_OS_WIN
-    // Ensure path for configuration and log file before MainWindow initialization
-    QDir().mkpath(QDir(QProcessEnvironment::systemEnvironment().value("LOCALAPPDATA")).filePath(GlobalVars::AppName));
-#endif
 
     MainWindow w;
     w.show();

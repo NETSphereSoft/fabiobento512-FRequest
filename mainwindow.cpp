@@ -53,19 +53,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     operatingSystemDefaultStyle(QApplication::style()->objectName())
 {
-#ifdef Q_OS_WIN
-    QString logFilePath = QDir(QDir(QProcessEnvironment::systemEnvironment()
-                                                        .value("LOCALAPPDATA"))
-                                                        .filePath(GlobalVars::AppName))
-                                                        .filePath(GlobalVars::AppLogFileName);
-#else
-    QString logFilePath = Util::FileSystem::getAppPath() + "/" + GlobalVars::AppLogFileName;
-#endif
-
     // We use this appender because it is the native way to have \r\n in windows in plog library
     // example: https://github.com/SergiusTheBest/plog/blob/master/samples/NativeEOL/Main.cpp
     static plog::RollingFileAppender<plog::TxtFormatter, plog::NativeEOLConverter<>> fileAppender
-            (QSTR_TO_TEMPORARY_CSTR(logFilePath), 1024*5 /* 5 Mb max log size */, 3);
+             (QSTR_TO_TEMPORARY_CSTR(UtilFRequest::getAppDataFolder().absoluteFilePath(GlobalVars::AppLogFileName)), 1024*5 /* 5 Mb max log size */, 3);
     plog::init(plog::info, &fileAppender);
 
     this->currentSettings = this->configFileManager.getCurrentSettings();
